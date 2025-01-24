@@ -24,14 +24,21 @@ template <typename T> class DLList{
     void addLeft(T value){
         PrevNextPointingNode<T> *tmp = new PrevNextPointingNode<T>(value);
         tmp->next = this->head;
-        //this->head->prev = tmp;
+        if (this->head != nullptr){
+            this->head->prev = tmp;
+        }else{
+            this->tail = tmp;
+        }
         this->head = tmp;
         this->lenght ++;
     }
     void addRight(T value){
         PrevNextPointingNode<T> *tmp = new PrevNextPointingNode<T>(value);
         tmp->prev = this->tail;
-        //this->tail->next = tmp;
+        if (this->tail != nullptr){this->tail->next = tmp;}
+        else{
+            this->head = tmp;
+        }
         this->tail = tmp;
         this->lenght ++;
     }
@@ -41,11 +48,6 @@ template <typename T> class DLList{
         while (current != nullptr){
             std::cout<<current->value<<std::endl;
             current = current->next;
-        }
-        PrevNextPointingNode<T> *current2 = this->tail;
-        while (current2 != nullptr){
-            std::cout<<current2->value<<std::endl;
-            current2 = current2->prev;
         }
     }
 
