@@ -10,6 +10,13 @@ template <typename T> class DLList{
         std::cout<<"si se chainea el import"<<std::endl;
     }
     ~DLList(){
+        PrevNextPointingNode<T> *current = this->head;
+        PrevNextPointingNode<T> *tmp;
+        while (current != nullptr){
+            tmp = current;
+            current = current->next;
+            delete tmp;
+        }
         std::cout<<"se delition una DDList"<<std::endl;
     }
     PrevNextPointingNode<T>* getLast(){
@@ -50,5 +57,42 @@ template <typename T> class DLList{
             current = current->next;
         }
     }
+    T getByIndex(int index){
+        PrevNextPointingNode<T> *current;
+        if (index >= this->lenght){
+            std::cout<<"se busco un indice fuera del limite: "<<index<<" de "<<this->lenght<<std::endl;
+        }
+        if (index <= this->lenght/2){
+            current = this->head;
+            for (int i = 0; i<index;i++){
+                current = current->next;
+            }
+        }else{
+            current = this->tail;
+            for (int i = this->lenght; i>index;i--){
+                current = current->prev;
+            }
+        }
+        return current->value;
+    }
+    T& getInstanceByIndex(int index){
+        PrevNextPointingNode<T> *current;
+        if (index >= this->lenght){
+            std::cout<<"se busco un indice fuera del limite: "<<index<<" de "<<this->lenght<<std::endl;
+        }
+        if (index <= this->lenght/2){
+            current = this->head;
+            for (int i = 0; i<index;i++){
+                current = current->next;
+            }
+        }else{
+            current = this->tail;
+            for (int i = this->lenght; i>index;i--){
+                current = current->prev;
+            }
+        }
+        return current->value;
+    }
+
 
 };
